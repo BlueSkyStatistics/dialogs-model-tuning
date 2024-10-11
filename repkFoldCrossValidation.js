@@ -1,71 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Build A Tuned Model With Repeated KFold Cross Validation",
-        navigation: "Repeated KFold Cross Validation",
-        modelname: "Enter name for tuned model",
-        folds: "Enter the number of folds",
-        levelOfInterest: "When the variable to predict has 2 levels, specify the level of interest. The confusion matrix and related statistics are displayed with the specified level of interest as the reference",
-        repeats: "Enter the number of repeats",
-        dependent: "Variable to predict",
-        independent: "Independent variables",
-        label1: "SOME MODELS OBJECT TO MISSING VALUES OR DEPENDENT VARIABLES THAT ARE FACTORS. FOR HANDLING MISSING VALUES, SEE [ VARIABLES > MISSING VALUES ] AND FOR DUMMY CODING FACTOR VARIABLES, SEE [ VARIABLES > COMPUTE > DUMMY CODE ]. Click ? icon on top right of dialog for details.",
-        ModelSelection: "Select a model category and then the type of model",
-        label2: "Parameters",
-        help: {
-            title: "Build A Tuned Model With Repeated KFold Cross Validation",
-            r_help: "help(train, package=caret)",
-            body: `
-<b>Description</b></br>
-Repeated KFold Cross Validation uses the trainControl and train functions within the caret package to create a tuned/optimized model.<br/>
-A tuned model is built by resampling results across tuning parameters. The results of the tuning are displayed below the tables at the bottom of the output<br/>
-Once the tuned model is built, we make predictions using the tuned model against the training dataset (used to build the model) and display the confusion matrix and related statistics.<br/>
-NOTE: see URL at https://www.blueskystatistics.com/Articles.asp?ID=330 for details on models that require dependent variables to be dummy coded and corresponding requirements for dependent variables supported. Also some models do not support missing values, if there are errors displayed when building the model, remove missing values.<br/>
-The tuned model is stored in the object of class train with a name that you specified in the textbox control.<br/>
-The parameter values selected for the final tuned model are displayed at the bottom in the output.<br/>
-In the case with predictors with 2 levels, you have the option to select the reference level/level of interest.<br/>
-The confusion matrix and related statistics are created using the specified level of interest.<br/>
-<code> 
-train_control <- caret::trainControl(method="repeatedcv", number=enter number of folds, repeats=enter number of repeats)<br/>
-#General syntax<br/>
-tunedModel <- caret::train(x = sample data to train the model, y = dependent variable, trControl = train_control, method = "the model to use", prob.model = TRUE )<br/>
-#Sample populated syntax<br/>
-tunedModel <- caret::train(as.data.frame(TrainData), dependentVariable, trControl = train_control, method = "adaboost", preProcess = NULL, prob.model = TRUE )<br/>
-</code>
-We generate a confusion matrix and model accuracy statistics for the tuned model. This is done as follows
-<ul>
-<li>
-We generate predicted values from the training dataset by calling the predict function on the optimized model of class train (Internally predict.train is the function in the caret package that R calls)<br/>
-<code> 
-predictedValues = predict(tunedModel returned by the train function)<br/>
-</code> <br/>
-</li>
-<li>
-We compute the accuracy statistics from the confusion matrix generated as below<br/>
-<code> 
-caret::confusionMatrix (predictions = predictedValues, reference = model dependent variable)<br/>
-</code> 
-</li>
-</ul>
-You can use the final tuned/optimized model to score a dataset. To do so, follow the steps below<br/>
-1.  Go to the dataset you want to score. Note: The variable names in the dataset to be scored (a.k.a. independent variables) must match the variable names you used in the dataset to originally create the tuned model. If not an error will display. This error message will display under the diagnostic tests section on the Model scoring dialog, see point 2 below. <br/>
-2.	Open the Model Scoring dialog under Model Evaluation>Predict>Model Scoring. <br/>
-3.	Select a model you want to use to score the dataset. You can filter the models you built by class. <br/>
-4.	Once you have selected the model, specify a prefix to use to store the predicted values. You can optionally save confidence intervals for the predictions and generate a confusion matrix. You must specify a prefix for the variable that contains the predictions/scores. The predictions and predicted probabilities where applicable are stored as new variables at the end of the dataset. For example, if the prefix specified is AA, the predictions are stored in a variable AA_original dependent variable name_Predictions, the predicted probabilities are stored in a variable AA_Level1_PredictedProbs. <br/>
-5.  Click on the Run button to score the dataset. <br/>
-<b>Package</b></br>
-caret</br>
-<b>Help</b></br>
-For detailed help click on the R icon on the top right hand side of this dialog or run the following command help(train, package ='caret') in the R Editor window
-`}
-    }
-}
+
 
 class repkFoldCrossValidation extends baseModal {
+    static dialogId = 'repkFoldCrossValidation'
+    static t = baseModal.makeT(repkFoldCrossValidation.dialogId)
+
     constructor() {
         var config = {
-            id: "repkFoldCrossValidation",
-            label: localization.en.title,
+            id: repkFoldCrossValidation.dialogId,
+            label: repkFoldCrossValidation.t('title'),
             modalType: "two",
             RCode: `
 require(caret)
@@ -135,7 +78,7 @@ local (
             modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: localization.en.modelname,
+                    label: repkFoldCrossValidation.t('modelname'),
                     placeholder: "",
                     extraction: "NoPrefix|UseComma",
                     required: true,
@@ -143,12 +86,12 @@ local (
                     overwrite: "dataset"
                 })
             },
-            label2: { el: new labelVar(config, { label: localization.en.label2,style:"mt-3", h: 6 }) },
+            label2: { el: new labelVar(config, { label: repkFoldCrossValidation.t('label2'),style:"mt-3", h: 6 }) },
             folds: {
                 el: new input(config, {
                     no: 'folds',
                     allow_spaces:true,
-                    label: localization.en.folds,
+                    label: repkFoldCrossValidation.t('folds'),
                     placeholder: "",
                     extraction: "NoPrefix|UseComma",
                     required: true,
@@ -160,7 +103,7 @@ local (
                 el: new input(config, {
                     no: 'repeats',
                     allow_spaces:true,
-                    label: localization.en.repeats,
+                    label: repkFoldCrossValidation.t('repeats'),
                     placeholder: "",
                     extraction: "TextAsIs",
                     required: true,
@@ -170,7 +113,7 @@ local (
             content_var: { el: new srcVariableList(config, {action: "move"}) },
             dependent: {
                 el: new dstVariable(config, {
-                    label: localization.en.dependent,
+                    label: repkFoldCrossValidation.t('dependent'),
                     no: "dependent",
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma|Enclosed",
@@ -180,19 +123,19 @@ local (
             },
             independent: {
                 el: new dstVariableList(config, {
-                    label: localization.en.independent,
+                    label: repkFoldCrossValidation.t('independent'),
                     no: "independent",
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma|Enclosed",
                     required: true,
                 }), r: ['{{ var | safe}}']
             },
-            label1: { el: new labelVar(config, { label: localization.en.label1, h: 6 }) },
+            label1: { el: new labelVar(config, { label: repkFoldCrossValidation.t('label1'), h: 6 }) },
             ModelType: {
                 el: new comboBoxWithChilderen(config, {
                     no: 'ModelSelection',
                     nochild: 'combokid',
-                    label: localization.en.ModelSelection,
+                    label: repkFoldCrossValidation.t('ModelSelection'),
                     multiple: false,
                     required:true,
                     extraction: "NoPrefix|UseComma",
@@ -217,7 +160,7 @@ local (
             levelOfInterest: {
                 el: new comboBox(config, {
                     no: 'levelOfInterest',
-                    label: localization.en.levelOfInterest,
+                    label: repkFoldCrossValidation.t('levelOfInterest'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: [],
@@ -231,13 +174,22 @@ local (
             right: [objects.dependent.el.content, objects.independent.el.content,],
             bottom: [objects.levelOfInterest.el.content,objects.label1.el.content, objects.ModelType.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: repkFoldCrossValidation.t('navigation'),
                 icon: "icon-k_fold_repeated",
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: repkFoldCrossValidation.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: repkFoldCrossValidation.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new repkFoldCrossValidation().render()
+
+module.exports = {
+    render: () => new repkFoldCrossValidation().render()
+}
