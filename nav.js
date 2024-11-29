@@ -1,5 +1,6 @@
-const nav = {
-    "name": "Model Tuning",
+let t = getT('menutoolbar')
+const nav = () => ({
+    "name": t('modeltuning_top_level_title'),// {ns: 'menutoolbar'}),
     "tab": "model_tuning",
     "buttons": [
         "./bootstrapResampling",
@@ -7,6 +8,9 @@ const nav = {
         "./leaveOneOutCrossValidation",
         "./repkFoldCrossValidation"
     ]
-}
+})
 
-module.exports.nav = nav
+module.exports = {
+    nav: nav(),
+    render: () => nav()
+}
