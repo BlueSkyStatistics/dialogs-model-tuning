@@ -183,7 +183,7 @@ local (
         
         this.help = {
             title: repkFoldCrossValidation.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: repkFoldCrossValidation.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: repkFoldCrossValidation.t('help.body')
         }
 ;

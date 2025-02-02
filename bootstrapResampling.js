@@ -166,7 +166,7 @@ local (
         
         this.help = {
             title: bootstrapResampling.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: bootstrapResampling.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: bootstrapResampling.t('help.body')
         }
 ;

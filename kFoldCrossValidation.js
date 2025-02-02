@@ -169,7 +169,7 @@ local (
         
         this.help = {
             title: kFoldCrossValidation.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: kFoldCrossValidation.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: kFoldCrossValidation.t('help.body')
         }
 ;
