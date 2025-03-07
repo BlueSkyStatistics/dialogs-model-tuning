@@ -4,6 +4,7 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
+const {getT} = require("../../../../localization");
 let t = getT('menutoolbar')
 const nav = () => ({
     "name": t('modeltuning_top_level_title'),// {ns: 'menutoolbar'}),
