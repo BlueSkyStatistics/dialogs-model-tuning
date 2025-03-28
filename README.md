@@ -1,2 +1,2 @@
 # modelTuningDialogs
-BlueSky Statistics Model Tuning dialogs
+BioStat Prime Model Tuning dialogs

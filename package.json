@@ -1,11 +1,11 @@
 {
     "name": "@BlueSkyStatistics/dialogs/modelTuning",
     "productName": "Model Tuning dialogs",
-    "description": "BlueSky Statistics Model Tuning dialogs",
+    "description": "BioStat Prime Model Tuning dialogs",
     "keywords": [],
     "main": "nav.js",
     "version": "1.0.4",
-    "author": "BlueSky Statistics",
+    "author": "BioStat Prime",
     "scripts": {},
     "dependencies": {
         "squirrelly": "7.9.2"
